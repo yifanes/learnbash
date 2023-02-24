@@ -1,10 +1,3 @@
-# 这里的内容包含但不限于handbook中文版的内容， 主要加入了自己学习过程中的一些笔记知识，希望可以覆盖尽可能多的细节
-
-# bash-handbook-zh-CN [![CC 4.0][cc-image]][cc-url]
-
-谨以此文档献给那些想学习Bash又无需钻研太深的人。
-
-> **Tip**: 不妨尝试 [**learnyoubash**](https://git.io/learnyoubash) — 一个基于本文档的交互式学习平台！
 
 # 目录
 
@@ -33,8 +26,10 @@
   - [流](#流)
   - [管道](#管道)
   - [命令序列](#命令序列)
-- [map] (#map)
-  - [map申明] (#map声明)
+- [map](#map)
+  - [map声明](#map声明)
+  - [map赋值与获取](#map赋值与获取)
+  - [map遍历](#map遍历)
 - [条件语句](#条件语句)
   - [基元和组合表达式](#基元和组合表达式)
   - [使用`if`](#使用if)
@@ -47,9 +42,6 @@
   - [循环控制](#循环控制)
 - [函数](#函数)
 - [Debugging](#debugging)
-- [后记](#后记)
-- [其它资源](#其它资源)
-- [License](#license)
 
 # 前言
 
@@ -471,45 +463,63 @@ map是重要的数据结构, 在bash中需要注意,以下例子都是在4.0以�
 ## map声明
 
 方式1:
+```
 declare -A m
 m["zh"]="中国"
+```
 
 方式2:
+```
 declare -A m=(["zh"]="中国" ["cn"]="美国")
+```
 
-map 赋值与获取
-赋值
+## map赋值与获取
+
+### 赋值
+```
 m["en"]="美国"
+```
 
-获取
+### 获取
+```
 _=${m["zh"]}
+```
 
-map长度
+### map长度
+```
 ${#m[@]}
+```
 
-map所有key
+### map所有key
+```
 ${!m[@]}
+```
 
-map所有value
+### map所有value
+```
 ${m[@]}
+```
 
-map遍历
+## map遍历
 
-map根据key找到value
+### map根据key找到value
+
 ```
 for key in ${!m[@]}; do
   echo "key: $key, val: ${m[$key]}"
 done
 ```
 
-遍历所有的key
+### 遍历所有的key
+
 ```
 for key in ${!m[@]}; do
     echo "key:$key"
 done
 ```
 
-遍历所有的value
+### 遍历所有的value
+
 ```
 for val in ${m[@]}; do
     echo "val:$val"
@@ -936,44 +946,4 @@ set +x
 echo "xtrace is turned off again"
 ```
 
-# 后记
-
-我希望这本小小的册子能很有趣且很有帮助。老实说，我写这本小册子是为了自己不会忘了bash的基础知识。我尽量让文字简明达意，希望你们会喜欢。
-
-这本小册子讲述了我自己的Bash经验。它并非全面综合，因此如果你想了解更多，请运行`man bash`，从那里开始。
-
-非常欢迎您的贡献，任何指正和问题我都非常感激。这些都可以通过创建一个[issue](#https://github.com/liushuaikobe/bash-handbook-zh-CN/issues)来进行。
-
-感谢您的阅读！
-
-# 想了解更多？
-
-下面是一些其它有关Bash的资料：
-
-* Bash的man页面。在Bash可以运行的众多环境中，通过运行`man bash`可以借助帮助系统`man`来显示Bash的帮助信息。有关`man`命令的更多信息，请看托管在[The Linux Information Project](http://www.linfo.org/)上的网页["The man Command"](http://www.linfo.org/man.html)。
-* ["Bourne-Again SHell manual"](https://www.gnu.org/software/bash/manual/)，有很多可选的格式，包括HTML，Info，Tex，PDF，以及Textinfo。托管在<https://www.gnu.org/>上。截止到2016/01，它基于的是Bash的4.3版本，最后更新日期是2015/02/02。
-
-# 其它资源
-
-* [awesome-bash](https://github.com/awesome-lists/awesome-bash)，是一个组织有序的有关Bash脚本以及相关资源的列表
-* [awesome-shell](https://github.com/alebcay/awesome-shell)，另一个组织有序的shell资源列表
-* [bash-it](https://github.com/Bash-it/bash-it)，为你日常使用，开发以及维护shell脚本和自定义命令提供了一个可靠的框架
-* [dotfiles.github.io](http://dotfiles.github.io/)，上面有bash和其它shell的各种dotfiles集合以及shell框架的链接
-* [learnyoubash](https://github.com/denysdovhan/learnyoubash)，帮助你编写你的第一个bash脚本
-* [shellcheck](https://github.com/koalaman/shellcheck)，一个shell脚本的静态分析工具，既可以在网页[www.shellcheck.net](http://www.shellcheck.net/)上使用它，又可以在命令行中使用，安装教程在[koalaman/shellcheck](https://github.com/koalaman/shellcheck)的github仓库页面上
-
-最后，Stack Overflow上[bash标签下](https://stackoverflow.com/questions/tagged/bash)有很多你可以学习的问题，当你遇到问题时，也是一个提问的好地方。
-
-# License
-
-[![CC 4.0][cc-image]][cc-url]
-
-&copy; [Denys Dovhan](http://denysdovhan.com)
-
-[![CC 4.0][cc-image]][cc-url]
-
-&copy; [Shuai Liu](http://blog.vars.me) For Chinese translation
-
-[cc-url]: http://creativecommons.org/licenses/by/4.0/
-[cc-image]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg?style=flat-square
 
