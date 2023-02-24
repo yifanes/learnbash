@@ -489,6 +489,9 @@ ${!m[@]}
 #map所有value
 ${m[@]}
 
+#map删除某个值
+unset m["en"]
+
 ```
 
 ## map遍历
