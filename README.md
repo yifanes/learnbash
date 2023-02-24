@@ -33,6 +33,8 @@
   - [流](#流)
   - [管道](#管道)
   - [命令序列](#命令序列)
+- [map] (#map)
+  - [map申明] (#map声明)
 - [条件语句](#条件语句)
   - [基元和组合表达式](#基元和组合表达式)
   - [使用`if`](#使用if)
@@ -460,6 +462,58 @@ grep da * 2> errors.txt
 
 # 从errors.txt中读取输入
 less < errors.txt
+```
+
+# map
+
+map是重要的数据结构, 在bash中需要注意,以下例子都是在4.0以上的, mac os还是3.* , 所以需要 `brew install bash`,同时找到`/usr/local/bin/bash`
+
+## map声明
+
+方式1:
+declare -A m
+m["zh"]="中国"
+
+方式2:
+declare -A m=(["zh"]="中国" ["cn"]="美国")
+
+map 赋值与获取
+赋值
+m["en"]="美国"
+
+获取
+_=${m["zh"]}
+
+map长度
+${#m[@]}
+
+map所有key
+${!m[@]}
+
+map所有value
+${m[@]}
+
+map遍历
+
+map根据key找到value
+```
+for key in ${!m[@]}; do
+  echo "key: $key, val: ${m[$key]}"
+done
+```
+
+遍历所有的key
+```
+for key in ${!m[@]}; do
+    echo "key:$key"
+done
+```
+
+遍历所有的value
+```
+for val in ${m[@]}; do
+    echo "val:$val"
+done
 ```
 
 ## 管道
@@ -923,4 +977,3 @@ echo "xtrace is turned off again"
 [cc-url]: http://creativecommons.org/licenses/by/4.0/
 [cc-image]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg?style=flat-square
 
-# [译者手记](./translator-notes.md)
