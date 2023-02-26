@@ -42,6 +42,7 @@
   - [循环控制](#循环控制)
 - [函数](#函数)
 - [Debugging](#debugging)
+- [PS环境变量](#PS环境变量)
 
 # 前言
 
@@ -939,5 +940,63 @@ echo "xtrace is enabled"
 set +x
 echo "xtrace is turned off again"
 ```
+
+# PS环境变量
+
+这里单独列出, 是因为上面讲`SELECT` 的时候提到过
+
+## PS1
+
+是主提示符变量,也是默认提示符变量。默认值[\u@\h \W]\$，显示用户主机名称工作目录。 
+
+基本上通过设置PS1来定义命令行提示字符即可，最常用的需求就是显示登录的用户名、主目录、主机名等等。
+
+大白话: 就是你在终端见到的 `#` 前面的那些字符串,例如: `bash-5.1$`, 这里就是大家看到有些人的终端各种彩色的符号的原因.
+
+## PS2
+
+```bash
+[root@centos7 ~]#echo \           
+>   #默认的
+
+[root@centos7 ~]# export PS2=">+ "  # 修改
+
+[root@centos7 ~]#echo \            
+>+   #修改后
+```
+
+## PS3
+
+Shell脚本中使用select时的提示符
+ 
+```bash
+[root@centos6 ~]#cat ps3.sh  
+PS3="Select a day (1-4): "
+select i in mon tue wed exit
+do
+    case $i in
+        mon) echo "Monday";;
+        tue) echo "Tuesday";;
+        wed) echo "Wednesday";;
+        exit) exit;;
+    esac
+done
+[root@centos6 ~]#bash ps3.sh 
+1) mon
+2) tue
+3) wed
+4) exit
+Select a day (1-4): 1       [注: 提示符是 Select a day (1-4):]
+Monday
+Select a day (1-4): 2
+Tuesday
+Select a day (1-4): 4
+```
+
+## PS4
+
+set -x用来修改跟踪输出的前缀
+
+
 
 
